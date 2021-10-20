@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\Post;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -20,7 +20,7 @@ class PostController extends Controller
      return view('post',[
         "title" => "Single Post",
         "post" => Post::find($slug)
-     ]);   
+    ]);   
 
     }
 }
