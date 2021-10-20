@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,55 +32,7 @@ Route::get('/about', function () {
 });
 
 
-Route::get('/blog', function () {$blog_posts = [
-    [
-        "title" => "Judul Post Pertama",
-        "slug" => "judul-post-pertama",
-        "author" => "Sulthan jihad",
-        "body" => "et iusto omnis ratione consequatur nihil praesentium culpa? Accusamus laudantium eveniet iste porro."
-    ],
-    [
-        "title" => "Judul Post kedua",
-        "slug" => "judul-post-kedua",
-        "author" => "atan",
-        "body" => "magnam deleniti, nisi doloribus, et iusto omnis ratione consequatur nihil praesentium culpa? Accusamus laudantium eveniet iste porro."
-    ],
-    
-];
-
-    return view('posts', [
-        "title" => "Posts",
-        "posts" => $blog_posts
-    ]);
-});
-
+Route::get('/blog', [PostController::class, 'index']);
 
 // halaman single post
-Route::get('posts/{slug}', function($slug){
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "author" => "Sulthan jihad",
-            "body" => "et iusto omnis ratione consequatur nihil praesentium culpa? Accusamus laudantium eveniet iste porro."
-        ],
-        [
-            "title" => "Judul Post kedua",
-            "slug" => "judul-post-kedua",
-            "author" => "atan",
-            "body" => "magnam deleniti, nisi doloribus, et iusto omnis ratione consequatur nihil praesentium culpa? Accusamus laudantium eveniet iste porro."
-        ],
-        
-    ];
-    $new_post = [];
-    foreach($blog_posts as $post){
-        if($post["slug"] === $slug){
-            $new_post = $post;
-        }
-    }
-    
-    return view('post', [
-        "title" => "Single Post",
-        "post" => $new_post
-    ]);
-});
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
